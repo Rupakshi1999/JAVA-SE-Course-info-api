@@ -1,5 +1,6 @@
 package courseinfo.cli;
 
+import courseinfo.cli.service.CourseRetrieverService;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
@@ -20,6 +21,9 @@ public class CourseRetriever {
 
     private static void retrieveCourses(String authorID) {
         LOG.info("Retrieving courses for author '{}' ",  authorID);
+        CourseRetrieverService courseRetrieverService = new CourseRetrieverService();
+        String coursesToStore = courseRetrieverService.getCourses(authorID);
+        LOG.info("Retrieved courses {} for author '{}' ",  coursesToStore, authorID);
     }
 
 }

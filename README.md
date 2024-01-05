@@ -20,6 +20,7 @@
 - Database interaction 
 - Testing
 
+## Design decision regarding tooling:
 ### Option 1, Java Frameworks: 
 Spring Boot, Java EE, Quarkus, Micronaut etc.
 
@@ -46,3 +47,9 @@ We don't need dependency injection for this level of application, so we can use 
 
 #### Cons:
 - This is not how java development happens in real world
+
+## CLI Tool
+- HTTP call: HttpClient API To make a call to Pluralsight API
+- Response object: Java Record 
+- JSON -> Object: Jackson
+- Testing: JUnit
