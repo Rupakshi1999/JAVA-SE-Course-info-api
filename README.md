@@ -11,6 +11,9 @@
 
 ## Tools
 - Build tool
+  - Maven
+    - `mvn clean` to clean up previous builds
+    - ` mvn clean verify` to add new builds, run tests etc
 - Web API call
 - Json handling
 - REST API + server
