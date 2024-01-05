@@ -1,8 +1,11 @@
 package courseinfo.cli;
 
 import courseinfo.cli.service.CourseRetrieverService;
+import courseinfo.cli.service.PluralSightCourse;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+
+import java.util.List;
 
 public class CourseRetriever {
     private static final Logger LOG = LoggerFactory.getLogger(CourseRetriever.class);
@@ -22,8 +25,11 @@ public class CourseRetriever {
     private static void retrieveCourses(String authorID) {
         LOG.info("Retrieving courses for author '{}' ",  authorID);
         CourseRetrieverService courseRetrieverService = new CourseRetrieverService();
-        String coursesToStore = courseRetrieverService.getCourses(authorID);
-        LOG.info("Retrieved courses {} for author '{}' ",  coursesToStore, authorID);
+        List<PluralSightCourse> coursesToStore = courseRetrieverService.getCourses(authorID)
+                .stream()
+                .filter(course -> !course.isRetired())
+                .toList();
+        LOG.info("Retrieved {} courses {} for author '{}' ",coursesToStore.size(),  coursesToStore, authorID);
     }
 
 }
