@@ -1,25 +1,25 @@
 package courseinfo.cli;
 
-public class CourseRetriever {
-    public static void main (String... args){
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
+public class CourseRetriever {
+    private static final Logger LOG = LoggerFactory.getLogger(CourseRetriever.class);
+    public static void main (String... args){
+        LOG.info("CourseRetriever starting!");
         if(args.length == 0){
-            print("Please provide an author name as first argument");
+            LOG.warn("Please provide an author name as first argument");
             return;
         }
         try {
             retrieveCourses(args[0]);
         } catch (Exception e) {
-            print("Unexpected error");
-            e.printStackTrace();
+            LOG.error("Unexpected error", e);
         }
     }
 
     private static void retrieveCourses(String authorID) {
-        print("Retrieving courses for author: " + authorID);
+        LOG.info("Retrieving courses for author '{}' ",  authorID);
     }
 
-    private static void print(String s) {
-        System.out.println(s);
-    }
 }
