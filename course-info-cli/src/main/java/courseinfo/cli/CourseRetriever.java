@@ -1,7 +1,9 @@
 package courseinfo.cli;
 
 import courseinfo.cli.service.CourseRetrieverService;
+import courseinfo.cli.service.CourseStorageService;
 import courseinfo.cli.service.PluralSightCourse;
+import courseinfo.repository.CourseRepository;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
@@ -25,11 +27,16 @@ public class CourseRetriever {
     private static void retrieveCourses(String authorID) {
         LOG.info("Retrieving courses for author '{}' ",  authorID);
         CourseRetrieverService courseRetrieverService = new CourseRetrieverService();
+        CourseRepository courseRepository = CourseRepository.openCourseRepository("./courses.db");
+        CourseStorageService courseStorageService = new CourseStorageService(courseRepository);
+
         List<PluralSightCourse> coursesToStore = courseRetrieverService.getCourses(authorID)
                 .stream()
                 .filter(course -> !course.isRetired())
                 .toList();
         LOG.info("Retrieved {} courses {} for author '{}' ",coursesToStore.size(),  coursesToStore, authorID);
+        courseStorageService.storePluralsightCourses(coursesToStore);
+        LOG.info("courses stored in db");
     }
 
 }
