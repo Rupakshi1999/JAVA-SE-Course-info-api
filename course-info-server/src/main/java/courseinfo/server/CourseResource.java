@@ -37,12 +37,27 @@ public class CourseResource {
         }
     }
 
-//    @POST
-//    @Path("/course")
-//    public void CreateCourses(){
-//
-//    }
-//    public void addCourses(Course course){
-//
-//    }
+    @GET
+    @Path("/{id}")
+    public String getCourse(@PathParam("id") String courseID) {
+        try
+        {
+            return courseRepository
+                    .getAllCourses()
+                    .stream()
+                    .filter(course -> course.id().equals(courseID))
+                    .toString();
+        } catch (RepositoryException e){
+            LOG.error("Could not retrieve course from the database ", e);
+            throw new NotFoundException();
+        }
+    }
+
+    @POST
+    @Path("/{id}/notes")
+    @Consumes(MediaType.TEXT_PLAIN)
+    public void addNotes(@PathParam("id") String courseID, String notes){
+        courseRepository.addNotes(courseID, notes);
+    }
+
 }
