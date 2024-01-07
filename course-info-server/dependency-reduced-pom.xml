@@ -11,7 +11,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>3.5.0</version>
+        <version>3.3.0</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -19,10 +19,12 @@
               <goal>shade</goal>
             </goals>
             <configuration>
-              <transformer>
-                <mainClass>courseinfo.server.CourseServer</mainClass>
-              </transformer>
-              <transformer />
+              <transformers>
+                <transformer>
+                  <mainClass>courseinfo.server.CourseServer</mainClass>
+                </transformer>
+                <transformer />
+              </transformers>
             </configuration>
           </execution>
         </executions>
