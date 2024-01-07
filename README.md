@@ -53,3 +53,9 @@ We don't need dependency injection for this level of application, so we can use 
 - Response object: Java Record 
 - JSON -> Object: Jackson
 - Testing: JUnit
+
+
+## to run the application with jar
+`mvn clean`
+`mvn clean verify`
+`java -jar course-info-server/target/course-info-server-1.0-SNAPSHOT.jar`
