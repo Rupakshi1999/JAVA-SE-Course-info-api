@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Path("/courses")
 public class CourseResource {
@@ -23,14 +24,13 @@ public class CourseResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Course> getCourses() {
+    public Stream<Course> getCourses() {
         try
         {
             return courseRepository
                     .getAllCourses()
                     .stream()
-                    .sorted(Comparator.comparing(Course::id))
-                    .toList();
+                    .sorted(Comparator.comparing(Course::id));
         } catch (RepositoryException e){
             LOG.error("Could not retrieve courses from the database ", e);
             throw new NotFoundException();
@@ -39,14 +39,14 @@ public class CourseResource {
 
     @GET
     @Path("/{id}")
-    public String getCourse(@PathParam("id") String courseID) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public Stream<Course> getCourse(@PathParam("id") String courseID) {
         try
         {
             return courseRepository
                     .getAllCourses()
                     .stream()
-                    .filter(course -> course.id().equals(courseID))
-                    .toString();
+                    .filter(course -> course.id().equals(courseID));
         } catch (RepositoryException e){
             LOG.error("Could not retrieve course from the database ", e);
             throw new NotFoundException();
