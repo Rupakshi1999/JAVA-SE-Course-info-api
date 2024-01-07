@@ -3,10 +3,7 @@ package courseinfo.server;
 import courseinfo.domain.Course;
 import courseinfo.repository.CourseRepository;
 import courseinfo.repository.RepositoryException;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.NotFoundException;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,4 +36,13 @@ public class CourseResource {
             throw new NotFoundException();
         }
     }
+
+//    @POST
+//    @Path("/course")
+//    public void CreateCourses(){
+//
+//    }
+//    public void addCourses(Course course){
+//
+//    }
 }
