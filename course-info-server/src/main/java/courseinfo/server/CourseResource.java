@@ -2,7 +2,9 @@ package courseinfo.server;
 
 import courseinfo.domain.Course;
 import courseinfo.repository.CourseRepository;
+import courseinfo.repository.RepositoryException;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
@@ -25,10 +27,16 @@ public class CourseResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Course> getCourses() {
-        return courseRepository
-                .getAllCourses()
-                .stream()
-                .sorted(Comparator.comparing(Course::id))
-                .toList();
+        try
+        {
+            return courseRepository
+                    .getAllCourses()
+                    .stream()
+                    .sorted(Comparator.comparing(Course::id))
+                    .toList();
+        } catch (RepositoryException e){
+            LOG.error("Could not retrieve courses from the database ", e);
+            throw new NotFoundException();
+        }
     }
 }
